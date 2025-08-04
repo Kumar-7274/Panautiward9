@@ -1,60 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>घटनादर्ता तथा सिफारिस सम्बन्धी जानकारी</title>
-	<style>
-		*{
-			margin: 0px;
-			padding: 0px;
-			box-sizing: border-box;
-			font-family: sans-serif;
-		}
-		#ghatnaDarta{
-			max-width: 100%;
-			height: auto;
-			background: rgb(205, 236, 247);
-			font-size: 1.5rem;
-			font-weight: 1000;
-			padding: 5px 10px;
-			text-align: center;
-			color: darkblue;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animated FAQ Accordion</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f7;
+      padding: 40px;
+    }
 
-		}
-		.info {
-			border: 1px, solid grey;
-			width: 100%;
-			height: auto;
-			padding: 10px 20px;
-			margin-top: 10px;
-			font-size: 1rem;
-		}
-		.info h3 {
-			background: rgb(141, 236, 236);
-			text-align: center;
-		}
-		.info h3 span {
-			font-size: 1.5rem;
-			position: relative;
-			margin-right: 10px;
-		}
-		.info p {
-			margin-top: 10px;
-		}
-	</style>
-		
-	</head>
+    .faq-container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .faq {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faq-header {
+      background: rgb(149, 219, 149);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-header:hover {
+      background: #f9f9f9;
+    }
+
+    .faq-question {
+      font-size: 18px;
+      margin: 0;
+     
+    }
+
+    .arrow {
+      font-size: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .faq.active .arrow {
+      transform: rotate(90deg);
+    }
+
+    .faq-answer {
+      text-align: justify;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+      padding: 0 20px;
+    }
+
+    .faq.active .faq-answer {
+      padding: 10px 20px 20px;
+      max-height: 1000px;
+    }
+  </style>
+</head>
 <body>
-	<header>
-		<h1 id="ghatnaDarta">घटनादर्ता सम्बन्धी जानकारी</h1>
-	</header>
-	<div class="info">
-		<h3>जन्मदर्ता <span>+</span></h3>
-		<p>बच्चा जन्मेको ३५ दिन भित्र वडा कार्यालयमा बच्चाको जन्मदर्ता गर्नु पर्दछ । ३५ दिन नाघेर दर्ता गरेमा नियमानुसार जरिवाना लाग्नेछ ।
-			जन्मदर्ता गर्न बाबुआमाको नागरिकता, विवाह दर्ता, अस्पतालको जन्म प्रमाणित सर्टिफिकेट आवश्यक पर्दछ ।
-		</p>
+  <div class="faq-container">
+    <div class="faq">
+      <div class="faq-header">
+        <h3 class="faq-question">जन्मदर्ता सम्बन्धी जानकारी:</h3>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>जन्म दर्ता भन्नाले कुनै व्यक्तिको जन्म भएकाे तथ्यलाई सरकारी अभिलेखमा दर्ता गर्नु हो।
+            नेपालमा यो प्रक्रिया स्थानीय वडा कार्यालयमा गरिन्छ। नागरिकता, राहदानी, विद्यालय भर्ना लगायत अन्य 
+            सरकारी सेवाहरुको लागि जन्मदर्ता गर्नु अत्यन्त आवश्यक छ। ३५ दिनभित्र जन्मदर्ता गरिएमा कुनै जरिवाना लाग्दैन।
+            ३५ दिनपछि गरेमा नियमानुसार जरिवाना लाग्नेछ। जन्मदर्ताको लागि बच्चा जन्मिएको वा अभिभावकको स्थानीय
+            बसोबास भएको नगरपालिका/गाउँपालिका अन्तर्गतको वडा कार्यालयमा दर्ता गर्नुपर्छ।
+        </p>
+        <h4>आवश्यक कागजातहरु:</h4>
+        <ul>
+            <li>स्वास्थ्य संस्था वा अस्पतालमा जन्म भएको भए उक्त संस्थाबाट जारी जन्म प्रमाणपत्र/ घरमा भएको भए पछिल्लो खोप कार्ड</li>
+            <li>बुवा तथा आमाको नागरिकता प्रमाणपत्र</li>
+            <li>बुवाआमाको विवाह दर्ता प्रमाणपत्र</li>
+            <li>विदेशमा जन्म भएको हकमा बाबु आमाको राहदानी प्रमाणपत्र तथा सम्बन्धित स्थानीय तहको वडामा बसोबास रहेको प्रमाण</li>
+            <li>बाबु वेपत्ता वा ठेगान नभएको सो सम्बन्धी प्रहरी प्रतिवेदन</li>
+        </ul>
+      </div>
+    </div>
 
-	</div>
+    <div class="faq">
+      <div class="faq-header">
+        <h3 class="faq-question">विवाह दर्ता सम्बन्धी जानकारी:</h3>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>विवाह दर्ता भन्नाले दुलाहा-दुलही बीच वैधानिक रुपमा सम्पन्न विवाहलाई सम्बन्धित वडा कार्यालयमा कानुनी रुपमा दर्ता गराउने प्रक्रिया हो। पासपोर्ट, नागरिकतामा नाम समायोजन गर्न, कानुनी विवाद (उदाहरण: सम्पत्ती, पारिवारिक अधिकार आदि) समाधान गर्न र वैदेशिक बसोबास वा भिसा प्रक्रिया सरल बनाउन विवाह दर्ता प्रमाणपत्रको आवश्यकता पर्दछ। विवाह भएको स्थान वा दुवै पक्ष मध्य एकको स्थायी ठेगाना रहेको वडा कार्यालयमा ३५ दिन भित्र विवाह दर्ता गराउनु पर्दछ। अन्यथा नियमानुसार जरिवाना लाग्दछ। विवाह दर्ताको लागी दर्वै पक्ष वडा कार्यालयमा उपस्थित हुनु पर्दछ र २० बर्ष पुरा भएको हुनुपर्दछ। </p>
+        <h4>आवश्यक कागजातहरु</h4>
+        <ul>
+            <li>दुवै पक्षको नागरिकता प्रमाणपत्र वा राष्ट्रियता खुल्ने कागज</li>
+            <li>नागरिकता नभएको अवश्थामा जन्मदर्ताको प्रमाणपत्र</li>
+            <li>पूर्व विवाह भएको भए सम्बन्ध विच्छेदको प्रमाणपत्र/मृत्यू दर्ताको प्रमाणपत्र</li>
+            <li>दुवै पक्षको हालसालै खिचेको पासपोर्ट साईजको फोटो दुई थान</li>
+            <li>अदालतबाट नाता कायम भएको भए नाता कायमको कागज</li>
+            <li>दुवै पक्षको हालसालै खिचेको पासपोर्ट साईजको फोटो दुई थान</li>
+            <li>कुनै एकजना विदेशमा भएमा विदेश स्थित नेपाली नियोगबाट प्रमाणित अधिकृत वारेसनामा</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq">
+      <div class="faq-header">
+        <h3 class="faq-question">मृत्यू दर्ता सम्बन्धी जानकारी:</h3>
+        <span class="arrow">▶</span>
+      </div>
+      <div class="faq-answer">
+        <p>नेपालमा मृत्यू दर्ता भन्नाले कुनै व्यक्तिको मृत्यू भएको घटना कानुनी रुपमा स्थानीय निकायमा अभिलेख राख्‍ने प्रक्रिया हो। मृतकको सम्पत्ती हक सम्बन्धी कानुनी प्रक्रिया (जस्तै: नामसारी, उत्तराधिकारी तोक्न), बैंक,बीमा,पेन्सन,सामाजिक सुरक्षा भत्ता इत्यादिमा दावी गर्न, वैदेशिक रोजगार वा आप्रवासन सम्बन्धी कागज प्रक्रिया पूरा गर्न, सरकारी अभिलेख अद्यावधिक गर्न मृत्यू दर्ता गर्नु पर्दछ। मृत्यू भएको स्थानको वडा कार्यालयमा मृत्यू भएको ३५ दिन भित्र मृत्यू दर्ता गर्नुपर्दछ। ३५ नेघेर दर्ता गरेमा नियमानुसार जरिवाना लाग्दछ।  </p>
+        <h4>आवश्यक कागजातहरु</h4>
+        <ul>
+            <li>मृतकको नागरिकता प्रमाण पत्र</li>
+            <li>दर्ता निवेदकको (सूचक) नागरिकता प्रमाणपत्र</li>
+            <li>मृत्यू प्रमाणित गर्ने कागजात (जस्तै: अस्पतालको मृत्यू प्रमाणपत्र)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const faqs = document.querySelectorAll('.faq');
+
+    faqs.forEach(faq => {
+      faq.querySelector('.faq-header').addEventListener('click', () => {
+        // Close all FAQs
+        faqs.forEach(item => {
+          if (item !== faq) {
+            item.classList.remove('active');
+          }
+        });
+        // Toggle current FAQ
+        faq.classList.toggle('active');
+      });
+    });
+  </script>
 </body>
 </html>
