@@ -1,109 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image slider</title>
-    <style>
-        .slider {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  margin: 40px auto;
-  overflow: hidden;
-  border-radius: 8px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Gallery</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-.slides img {
-  width: 100%;
-  height: auto;
-  flex-shrink: 0;
-  object-fit: cover;
-}
-button.prev,
-button.next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  padding: 12px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-button.prev:hover,
-button.next:hover {
-  background: rgba(0,0,0,0.7);
-}
-button.prev { left: 10px; }
-button.next { right: 10px; }
 
-@media (max-width: 768px) {
-  .slider {
-    max-width: 100%;
-  }
-  button.prev, button.next {
-    padding: 8px;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
-    </style>
+
+.gallery {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ddd;
+}
+  </style>
+
 </head>
 <body>
-    <div class="slider">
-        <div class="slides">
-            <img src="images/picture1.jpg" alt="slide 1" loading="lazy">
-            <img src="images/picture2.jpg" alt="slide 2" loading="lazy">
-            <img src="images/picture3.jpg" alt="slide 3" loading="lazy">
-            <img src="images/picture4.jpg" alt="slide 4" loading="lazy">
-            <img src="images/picture5.webp" alt="slide 5" loading="lazy">
-        </div>
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
+  <section class="gallery">
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="images/picture1.jpg" alt="Image 1" class="gallery-img" data-lightbox="image-1">
+      </div>
+      <div class="gallery-item">
+        <img src="images/picture2.jpg" alt="Image 2" class="gallery-img" data-lightbox="image-2">
+      </div>
+      <div class="gallery-item">
+        <img src="images/picture3.jpg" alt="Image 3" class="gallery-img" data-lightbox="image-3">
+      </div>
+      <div class="gallery-item">
+        <img src="images/picture4.jpg" alt="Image 4" class="gallery-img" data-lightbox="image-4">
+      </div>
+      <!-- Add more items here as needed -->
     </div>
+  </section>
 
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox">
+    <span class="close-btn">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+  </div>
 
-    <script>
-        const slides = document.querySelector('.slides');
-const images = document.querySelectorAll('.slides img');
-const prev = document.querySelector('.prev');
-const next = document.querySelector('.next');
+  <script>
+    // Lightbox functionality
+const galleryItems = document.querySelectorAll('.gallery-img');
+const lightboxModal = document.getElementById('lightbox-modal');
+const lightboxImage = document.getElementById('lightbox-img');
+const closeBtn = document.querySelector('.close-btn');
 
-let index = 0;
-const total = images.length;
-
-function showSlide(i) {
-  slides.style.transform = `translateX(${-i * 100}%)`;
-}
-
-next.addEventListener('click', () => {
-  index = (index + 1) % total;
-  showSlide(index);
+// Open lightbox when an image is clicked
+galleryItems.forEach(item => {
+  item.addEventListener('click', (e) => {
+    lightboxModal.style.display = 'flex';
+    lightboxImage.src = e.target.src;
+  });
 });
 
-prev.addEventListener('click', () => {
-  index = (index - 1 + total) % total;
-  showSlide(index);
+// Close lightbox when close button is clicked
+closeBtn.addEventListener('click', () => {
+  lightboxModal.style.display = 'none';
 });
 
-// Optional: auto-slide with pause on hover
-let autoSlide = setInterval(() => {
-  index = (index + 1) % total;
-  showSlide(index);
-}, 3000);
-
-const slider = document.querySelector('.slider');
-slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
-slider.addEventListener('mouseleave', () => {
-  autoSlide = setInterval(() => {
-    index = (index + 1) % total;
-    showSlide(index);
-  }, 3000);
+// Close lightbox when clicked outside the image
+lightboxModal.addEventListener('click', (e) => {
+  if (e.target === lightboxModal) {
+    lightboxModal.style.display = 'none';
+  }
 });
-
-    </script>
+  </script>
 </body>
 </html>
+
+
